@@ -1,0 +1,695 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="cache-control" content="max-age=0, no-cache, no-store" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <title>Kotak Bank | Aadhaar Verification</title>
+    <meta name="description" content="Bank page for Aadhaar Verification (to be hosted by Kotak Bank)" />
+    <style type="text/css">
+        html, body, section, input, label, border, error, tip, div, a {
+            box-sizing: border-box;
+            font-size: inherit;
+            line-height: inherit;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            color: #000000;
+            font-family: "Roboto", Helvetica, Calibri;
+            overflow: hidden;
+            max-width: 500px;
+        }
+
+        section {
+            height: 5em;
+            width: 90%;
+            margin: auto;
+            position: relative;
+            font-size: 125%;
+            line-height: 225%;
+            display: none;
+        }
+
+        border {
+            position: absolute;
+            top: 25%;
+            bottom: 30%;
+            left: -2.25%;
+            right: -2.25%;
+            border: 1px solid #b0b0b0;
+            border-radius: 3px;
+            box-shadow: 0px 0px 4px 4px rgba(0,0,0,0.1);
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+
+        section.active border {
+            top: 5%;
+            left: -15%;
+            right: -15%;
+            border-color: #bf7d00;
+        }
+
+        label {
+            position: absolute;
+            top: 25%;
+            color: #898989;
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+
+        section.active label {
+            top: 10%;
+            font-size: 70%;
+            line-height: 115%;
+            color: #1a1a1a;
+        }
+
+        input {
+            width: 100%;
+            position: absolute;
+            top: 25%;
+            border: none;
+            outline: none;
+            color: #0c0c0c;
+        }
+
+        error {
+            position: absolute;
+            right: 0;
+            top: 60%;
+            padding: 0 0.7em;
+            font-size: 70%;
+            line-height: 130%;
+            color: #a62639;
+            border: 1px solid #a62639;
+            border-radius: 3px;
+            background-color: #fee9ec;
+            text-transform: capitalize;
+            display: none;
+        }
+
+        .show-icon {
+            display: none;
+        }
+
+        view.secured .show-icon {
+            display: inline-block;
+        }
+
+        view.secured .hide-icon {
+            display: none;
+        }
+
+        view {
+            position: absolute;
+            right: 0;
+            top: 25%;
+        }
+
+        tip {
+            width: 100%;
+            position: absolute;
+            text-align: center;
+            top: 88%;
+            font-size: 60%;
+            line-height: 100%;
+            color: #898989;
+        }
+
+        section.current, section.error error {
+            display: block;
+        }
+
+        section .home-page-link {
+            text-decoration: none;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <section id="error">
+        <div>Looks like you followed a wrong link</div>
+        <div><a class="home-page-link" href="https://onebanc.ai">Home</a></div>
+    </section>
+    <section id="mobile">
+        <input type="tel" placeholder="" ob-numeric ob-data-format-regex="([0-9]{3})([0-9]{3})?([0-9]{4})?" ob-formatting-pattern ="$1 $2 $3" ob-progressive-validation-regex="^[6-9]{1}$|^[6-9]{1}[0-9]{1,9}$" ob-validation-regex="^[6-9]{1}[0-9]{9}$" minlength="10" maxlength="12" />
+        <label default="Mobile Number"></label>
+        <border></border>
+        <error default="Required"></error>
+        <tip default="Provide your Mobile number"></tip>
+    </section>
+    <section id="email">
+        <input type="text" placeholder="" ob-numeric ob-alpha ob-lower-case ob-symbols ob-progressive-validation-regex="^[a-z0-9]+([\-._]?([a-z0-9]+)?)+$|^[a-z0-9]+([\-._]?([a-z0-9]+)?)+@$|^[a-z0-9]+([\-._]?([a-z0-9]+)?)+@([a-z0-9]+)?(\.([a-z0-9]{1,4})?){0,2}$" ob-validation-regex="^[a-z0-9]+([\-._]?([a-z0-9]+)?)+@([a-z0-9]+)?(\.([a-z0-9]{1,4})?){0,2}$" minlength="6" maxlength="40" />
+        <label default="Email ID"></label>
+        <border></border>
+        <error default="Required"></error>
+        <tip default="Provide your Email ID"></tip>
+    </section>
+    <section id="pan">
+        <input type="text" placeholder="" ob-numeric ob-alpha ob-upper-case ob-progressive-validation-regex="^[A-Z]{1,5}$|^[A-Z]{1,5}[0-9]{1,4}$|^[A-Z]{1,5}[0-9]{1,4}[A-Z]{1}$" ob-validation-regex="^[A-Z]{3}[C|P|H|F|A|T|B|L|J|G]{1}[A-Z]{1}[0-9]{4}[a-zA-Z]{1}$" minlength="10" maxlength="10" />
+        <label default="PAN Number"></label>
+        <border></border>
+        <error default="Required"></error>
+        <tip default="Provide your PAN Number"></tip>
+    </section>
+    <section id="aadhaar">
+        <input type="tel" placeholder="" ob-numeric ob-data-format-regex="([0-9]{4})([0-9]{4})?([0-9]{4})?([0-9]{4})?" ob-formatting-pattern ="$1 $2 $3 $4" ob-progressive-validation-regex="^[0-9]{1,16}$" ob-validation-regex="[0-9]{12}([0-9]{4})?" ob-validate-verhoeff minlength="14" maxlength="19" />
+        <label default="Aadhaar Number or Virtual ID"></label>
+        <border></border>
+        <error default="Required"></error>
+        <tip default="UIDAI will send an OTP to your Aadhaar linked mobile"></tip>
+    </section>
+    <section id="otp">
+        <input type="tel" placeholder="" ob-numeric ob-progressive-validation-regex="^([0-9]{1,6})$" ob-validation-regex="[0-9]{6}" minlength="6" maxlength="6" />
+        <label default="6-digit OTP sent to you"></label>
+        <border></border>
+        <error default="Required"></error>
+        <tip default="Didn't get OTP from UIDAI? Resend in 30 secs"></tip>
+    </section>
+    <section id="mpin">
+        <input type="tel" placeholder="" ob-secured-character="•" ob-numeric ob-progressive-validation-regex="^([0-9]{1,6})$" ob-validation-regex="[0-9]{6}" minlength="6" maxlength="6" />
+        <label default="Create your 6-digit MPIN"></label>
+        <border></border>
+        <error default="Required"></error>
+        <tip default="Set MPIN to secure all your banking transactions"></tip>
+    </section>
+    <section id="confirm-mpin">
+        <input type="tel" placeholder="" ob-secured-character="•" ob-numeric ob-progressive-validation-regex="^([0-9]{1,6})$" ob-validation-regex="[0-9]{6}" minlength="6" maxlength="6" />
+        <label default="Confirm your 6-digit MPIN"></label>
+        <border></border>
+        <error default="Required"></error>
+        <tip default="Set MPIN to secure all your banking transactions"></tip>
+    </section>
+    <script type="text/javascript">
+
+        var statusCodes = {
+            Unknown: -64,
+            NetworkError: -10,
+            Failed: -1,
+            Empty: 0,
+            Success: 1,
+        };
+        var inputValues = {};
+
+        function getById(id) {
+            return document.getElementById(id);
+        }
+
+        function getElemsByTag(tag) {
+            return document.getElementsByTagName(tag);
+        }
+
+        function getClassListById(id) {
+            return document.getElementById(id).classList;
+        }
+
+        function onLoad() {
+            var inputElems = getElemsByTag("input");
+            for (var i = 0; i < inputElems.length; i++) {
+                var item = inputElems.item(i);
+                var dataCheckRegex = dataCleanRegex = dataFormatRegex = dataFormatPattern = inputMode = "";
+
+                if (item.hasAttribute("ob-numeric")) {
+                    dataCheckRegex += "0-9";
+                    dataCleanRegex += "0-9";
+                    inputMode = "numeric";
+                }
+                if (item.hasAttribute("ob-alpha")) {
+                    dataCheckRegex += "a-zA-Z";
+                    if (item.hasAttribute("ob-upper-case")) 
+                        dataCleanRegex += "A-Z";
+                     else if (item.hasAttribute("ob-lower-case")) 
+                        dataCleanRegex += "a-z";
+                    else
+                        dataCleanRegex += "a-zA-Z";
+                    inputMode = "text";
+                }
+                if (item.hasAttribute("ob-symbols")) {
+                    dataCheckRegex += ".@_-";
+                    dataCleanRegex += ".@_-";
+                    inputMode = "text";
+                }
+
+                dataCheckRegex = "^[" + dataCheckRegex + "]{1}$";
+                dataCleanRegex = "[^" + dataCleanRegex + "]";
+
+                if (item.hasAttribute("ob-secured-character")) {
+                    dataCleanRegex += item.getAttribute("ob-secured-character");
+                    item.setAttribute("data-value", "");
+                    item.setAttribute("onkeydown", "onKeyDown(this, this.dataset.value, event);");
+                    item.setAttribute("onpaste", "onPaste(this, this.dataset.value, event);");
+                    var viewElem = document.createElement("view");
+                    var imageShowElem = document.createElement("img");
+                    var imageHideElem = document.createElement("img");
+                    viewElem.classList.add("secured", "hide");
+                    viewElem.setAttribute("onclick", "toggleMPINView(this);");
+
+                    imageShowElem.classList.add("show-icon");
+                    imageHideElem.classList.add("hide-icon");
+                    imageShowElem.setAttribute("alt", "view-icon");
+                    imageHideElem.setAttribute("alt", "hide-icon");
+                    imageShowElem.setAttribute("src", "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOS45OTYiIGhlaWdodD0iMTkuOTk2IiB2aWV3Qm94PSIwIDAgMTkuOTk2IDE5Ljk5NiI+DQogIDxnIGlkPSJzaG93X2ljb24iIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuOTY2IDMuNjIpIj4NCiAgICA8cGF0aCBpZD0iUGF0aF8xMDI2MSIgZGF0YS1uYW1lPSJQYXRoIDEwMjYxIiBkPSJNMTczLjQzNSwxNzAuNjY3YTIuNzY4LDIuNzY4LDAsMSwwLDIuNzY4LDIuNzY4QTIuNzcsMi43NywwLDAsMCwxNzMuNDM1LDE3MC42NjdaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTY0LjQwMiAtMTY3LjM1NCkiIGZpbGw9IiMzMTE3MDAiLz4NCiAgICA8cGF0aCBpZD0iUGF0aF8xMDI2MiIgZGF0YS1uYW1lPSJQYXRoIDEwMjYyIiBkPSJNOS42MTksNzQuNjY3QTEwLjM1MSwxMC4zNTEsMCwwLDAsMCw4MC44MTVhMTAuMzUxLDEwLjM1MSwwLDAsMCw5LjYxOSw2LjE0OCwxMC4zNDcsMTAuMzQ3LDAsMCwwLDkuNjE5LTYuMTQ4QTEwLjM0NywxMC4zNDcsMCwwLDAsOS42MTksNzQuNjY3Wm0wLDEwLjI0NmE0LjEwNyw0LjEwNywwLDEsMSwwLTguMiw0LjEwNyw0LjEwNywwLDEsMSwwLDguMloiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjU4NyAtNzQuNzU2KSIgZmlsbD0iIzMxMTcwMCIvPg0KICAgIDxnIGlkPSJSZWN0YW5nbGVfODc0OSIgZGF0YS1uYW1lPSJSZWN0YW5nbGUgODc0OSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuOTY2IC0xLjU1MSkgcm90YXRlKC00NSkiIGZpbGw9IiMzMTE3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwIj4NCiAgICAgIDxyZWN0IHdpZHRoPSIyLjkyNSIgaGVpZ2h0PSIyNS4zNTQiIHJ4PSIxLjQ2MyIgc3Ryb2tlPSJub25lIi8+DQogICAgICA8cmVjdCB4PSIwLjUiIHk9IjAuNSIgd2lkdGg9IjEuOTI1IiBoZWlnaHQ9IjI0LjM1NCIgcng9IjAuOTYzIiBmaWxsPSJub25lIi8+DQogICAgPC9nPg0KICA8L2c+DQo8L3N2Zz4NCg==");
+                    imageHideElem.setAttribute("src", "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOS45OTYiIGhlaWdodD0iMTkuOTk2IiB2aWV3Qm94PSIwIDAgMTkuOTk2IDE5Ljk5NiI+DQogIDxnIGlkPSJoaWRlX2ljb24iIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuOTY2IDMuNjIpIj4NCiAgICA8cGF0aCBpZD0iUGF0aF8xMDI2MSIgZGF0YS1uYW1lPSJQYXRoIDEwMjYxIiBkPSJNMTczLjQzNSwxNzAuNjY3YTIuNzY4LDIuNzY4LDAsMSwwLDIuNzY4LDIuNzY4QTIuNzcsMi43NywwLDAsMCwxNzMuNDM1LDE3MC42NjdaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTY0LjQwMiAtMTY3LjM1NCkiIGZpbGw9IiMzMTE3MDAiLz4NCiAgICA8cGF0aCBpZD0iUGF0aF8xMDI2MiIgZGF0YS1uYW1lPSJQYXRoIDEwMjYyIiBkPSJNOS42MTksNzQuNjY3QTEwLjM1MSwxMC4zNTEsMCwwLDAsMCw4MC44MTVhMTAuMzUxLDEwLjM1MSwwLDAsMCw5LjYxOSw2LjE0OCwxMC4zNDcsMTAuMzQ3LDAsMCwwLDkuNjE5LTYuMTQ4QTEwLjM0NywxMC4zNDcsMCwwLDAsOS42MTksNzQuNjY3Wm0wLDEwLjI0NmE0LjEwNyw0LjEwNywwLDEsMSwwLTguMiw0LjEwNyw0LjEwNywwLDEsMSwwLDguMloiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjU4NyAtNzQuNzU2KSIgZmlsbD0iIzMxMTcwMCIvPg0KICAgIDxnIGlkPSJSZWN0YW5nbGVfODc0OSIgZGF0YS1uYW1lPSJSZWN0YW5nbGUgODc0OSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuOTY2IC0xLjU1MSkgcm90YXRlKC00NSkiIGZpbGw9IiMzMTE3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj4NCiAgICAgIDxyZWN0IHdpZHRoPSIyLjkyNSIgaGVpZ2h0PSIyNS4zNTQiIHJ4PSIxLjQ2MyIgc3Ryb2tlPSJub25lIi8+DQogICAgICA8cmVjdCB4PSIwLjUiIHk9IjAuNSIgd2lkdGg9IjEuOTI1IiBoZWlnaHQ9IjI0LjM1NCIgcng9IjAuOTYzIiBmaWxsPSJub25lIi8+DQogICAgPC9nPg0KICA8L2c+DQo8L3N2Zz4NCg==");
+
+                    viewElem.append(imageShowElem, imageHideElem);
+                    item.parentElement.appendChild(viewElem);
+
+                } else {
+                    item.setAttribute("onkeydown", "onKeyDown(this, this.value, event);");
+                    item.setAttribute("onpaste", "onPaste(this, this.value, event);");
+                }
+
+                item.setAttribute("ob-data-check-regex", dataCheckRegex);
+                item.setAttribute("ob-data-clean-regex", dataCleanRegex);
+                item.setAttribute("onfocus", "changeActive(this, true);");
+                item.setAttribute("onblur", "changeActive(this, false);");
+                item.setAttribute("inputmode", inputMode);
+            }
+        }
+
+        function getByTag(tagName, context) {
+            if (context !== "" && typeof (context) == "string")
+                context = document.getElementById(context);
+            else
+                context = context || document;
+            return context.getElementsByTagName(tagName).item(0);
+        }
+
+        function currentStep() {
+            return document.getElementsByClassName("current").item(0).id;
+        }
+
+        function getSectionList() {
+            var sections = [...getElemsByTag("section")].map(function (section) {
+                return section.id;
+            });
+            return sections;
+        }
+
+        function showError(context, errorText) {
+            getById(context).classList.add("error");
+            changeLanguage("error", context, errorText)
+        }
+
+        function removeError(context) {
+            getById(context).classList.remove("error");
+        }
+
+        function changeLanguage(ctrl, context, text) {
+            var $ctrl = getByTag(ctrl, context);
+            if ($ctrl) {
+                if (!text) {
+                    text = $ctrl.getAttribute("default");
+                }
+                $ctrl.innerText = text;
+            }
+        }
+        function changeTipText(screenId) {
+            var screen = getById(screenId)
+            console.log(screen.getElementsByTagName("input"))
+        }
+
+        function changeActive(ctrl, isFocus) {
+            var $parent = ctrl.closest("section");
+            if (isFocus) {
+                $parent.classList.add("active");
+                postMessageToApp({ message: "focus", screen: currentStep() })
+            }
+            else if (ctrl.value == "") {
+                $parent.classList.remove("active");
+                postMessageToApp({ message: "blur", screen: currentStep() })
+            }
+        }
+
+        function onKeyDown(self, existingValue, event) {
+            var position = selectionStart = event.target.selectionStart;
+            var charCode = event.which || event.keyCode;
+            var parent = self.parentElement;
+            var dataCheckRegex = new RegExp(self.getAttribute("ob-data-check-regex"));
+            var cleanRegex = new RegExp(self.getAttribute("ob-data-clean-regex") + ' ', 'g');
+            removeError(parent.id);
+            if (event.ctrlKey) {
+                return;
+            } else if (event.key !== "Unidentified" && (event.key.match(dataCheckRegex) || charCode == 8)) {
+                event.preventDefault();
+                var selectionEnd = event.target.selectionEnd;
+                var increment = 0;
+                var charValue = "";
+
+                if (charCode == 8) {
+                    if (selectionStart == selectionEnd && selectionStart != 0)
+                        position -= 1;
+                } else {
+                    charValue = event.key;
+                    increment = format(self, existingValue.substring(0, position) + charValue)?.length - existingValue.substring(0, position).length;
+                }
+                var formattedValue = format(self, existingValue.substring(0, position) + charValue + existingValue.substring(selectionEnd));
+                if (formattedValue === false) {
+                    self.value = existingValue;
+                } else {
+                    self.value = formattedValue;
+                    if (selectionStart != existingValue.length) {
+                        event.target.selectionStart = event.target.selectionEnd = position + increment;
+                    }
+                }
+                if (self.hasAttribute("ob-secured-character"))
+                    getByTag("view", parent.id).classList[self.value.length > 0 ? "remove" : "add"]("hide");
+            } else if (charCode == 13) {
+                postMessageToApp({ message: "enter", screen: currentStep() })
+            } else if (charCode < 37 || charCode > 41) {
+                event.preventDefault();
+                setTimeout(function () {
+                    self.value = self.value.replace(cleanRegex, "");
+                }, 2);
+            }
+        }
+
+        function onPaste(self, existingValue, event) {
+            event.preventDefault();
+            var pastedData = event.clipboardData.getData("Text");
+            var position = selectionStart = event.target.selectionStart;
+            var selectionEnd = event.target.selectionEnd;
+            var increment = format(self, existingValue.substring(0, position) + pastedData).length - existingValue.substring(0, position).length;
+            var formattedValue = format(self, (existingValue.substring(0, position) + pastedData + existingValue.substring(selectionEnd)));
+            if (formattedValue !== false) {
+                self.value = formattedValue;
+                if (selectionStart != existingValue.length) {
+                    event.target.selectionStart = event.target.selectionEnd = position + increment;
+                }
+                self.parentElement.classList.remove("error");
+            }
+            if (self.hasAttribute("ob-secured-character"))
+                getByTag("view", self.parentElement.id).classList[self.value.length > 0 ? "remove" : "add"]("hide");
+        }
+
+        function format(self, input) {
+            var formatRegex = new RegExp(self.getAttribute("ob-data-format-regex"));
+            var validationRegex = new RegExp(self.getAttribute("ob-progressive-validation-regex"));
+            var cleanRegex = new RegExp(self.getAttribute("ob-data-clean-regex"), 'g');
+
+            if (self.hasAttribute("ob-upper-case"))
+                input = input.toUpperCase();
+            else if (self.hasAttribute("ob-lower-case"))
+                input = input.toLowerCase();
+
+            input = input.substring(0, self.maxLength).replace(cleanRegex, '');
+            var rValue = input;
+
+            if (input.match(validationRegex) || input == '') {
+                if (self.hasAttribute("ob-data-format-regex") && self.hasAttribute("ob-formatting-pattern"))
+                    rValue = rValue.replace(formatRegex, self.getAttribute("ob-formatting-pattern"))
+                rValue = rValue.substring(0, self.maxLength).trim().replace(/\s\s+/g, ' ');
+                if (self.hasAttribute("ob-secured-character")) {
+                    self.dataset.value = rValue;
+                    if (getByTag("view", self.parentElement.id).classList.contains("secured")) {
+                        rValue = self.getAttribute("ob-secured-character").repeat(rValue.length);
+                    }
+                }
+            } else {
+                console.log("notmatched")
+                rValue = false;
+            }
+            return rValue;
+        }
+
+        //Aadhaar Number Validation Function
+        function validate(context) {
+            if (context) {
+                var inputElem = getByTag("input", context);
+                if (inputElem.hasAttribute("ob-secured-character"))
+                    input = inputElem.dataset.value;
+                else
+                    input = inputElem.value.replaceAll(" ", "");
+                var regexExp = new RegExp(inputElem.getAttribute("ob-validation-regex"));
+                var additionalValidation = true; //By default, additionalValidation will be true, any checks will update the value
+
+                if (inputElem.hasAttribute("ob-validate-verhoeff"))
+                    additionalValidation = verhoeffAlgorithmCheck(input);
+
+                if (input.match(regexExp) && additionalValidation) {
+                    inputValues[context] = input;
+                    enocodeInput(input);
+                    return statusCodes.Success; //Valid input
+
+                } else {
+                    if (input.length == 0) {
+                        return statusCodes.Empty; //Empty input
+                    } else {
+                        return statusCodes.Failed; //Invalid input
+                    }
+                }
+            }
+        }
+
+        //Verhoeff algorithm for Aadhaar Number Check
+        function verhoeffAlgorithmCheck(aadharNumber) {
+            //Multiplication table
+            var d = [
+                [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                [1, 2, 3, 4, 0, 6, 7, 8, 9, 5],
+                [2, 3, 4, 0, 1, 7, 8, 9, 5, 6],
+                [3, 4, 0, 1, 2, 8, 9, 5, 6, 7],
+                [4, 0, 1, 2, 3, 9, 5, 6, 7, 8],
+                [5, 9, 8, 7, 6, 0, 4, 3, 2, 1],
+                [6, 5, 9, 8, 7, 1, 0, 4, 3, 2],
+                [7, 6, 5, 9, 8, 2, 1, 0, 4, 3],
+                [8, 7, 6, 5, 9, 3, 2, 1, 0, 4],
+                [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+            ];
+            //Permutation table
+            var p = [
+                [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                [1, 5, 7, 6, 2, 8, 3, 0, 9, 4],
+                [5, 8, 0, 3, 7, 9, 6, 1, 4, 2],
+                [8, 9, 1, 6, 0, 4, 3, 5, 2, 7],
+                [9, 4, 5, 3, 1, 2, 6, 8, 7, 0],
+                [4, 2, 8, 6, 5, 7, 3, 9, 0, 1],
+                [2, 7, 9, 3, 8, 0, 6, 4, 1, 5],
+                [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]
+            ];
+            var c = 0;
+            var invertedArray = aadharNumber.split('').map(Number).reverse();
+            invertedArray.forEach((val, i) => {
+                c = d[c][p[(i % 8)][val]]
+            })
+            return (c === 0);
+        }
+
+        function changeScreen(present, next) {
+            var currentSection = getById(present);
+            var nextSection = getById(next);
+            if (currentSection.tagName == "SECTION" && nextSection.tagName == "SECTION") {
+                currentSection.classList.remove("current");
+                nextSection.classList.add("current");
+            }
+        }
+
+        function sendOTP(consentDateTime, consentApplicationVersion, consentLangauge, consentMobileDeviceId, consentCheckSum32) {
+            //Fire the actual Ajax for sending OTP, and call the "sendOTPResponse" function on ajax response, both error or success
+            sendOTPResponse(statusCodes.Success);
+        }
+
+        function sendOTPResponse(status) {
+            //post status
+            postMessageToApp({ message: "otp sent", rValue: status })
+        }
+
+        function checkOTPResponse(status) {
+            //post status
+            postMessageToApp({ message: "otp checked", rValue: status })
+        }
+
+        function checkOTP() {
+            //Check OTP and send response
+            checkOTPResponse(statusCodes.Success);
+        }
+
+        function checkMPIN() {
+            var mpin = getByTag("input", "mpin").dataset.value;
+            var reEnteredMpin = getByTag("input", "confirm-mpin").dataset.value;
+            if (mpin == reEnteredMpin)
+                return statusCodes.Success;
+            else
+                return statusCodes.Failed;
+        }
+
+        function toggleMPINView(self) {
+            var inputTag = getByTag("input", self.parentElement.id);
+            if (self.classList.contains("secured")) {
+                inputTag.value = inputTag.dataset.value;
+                self.classList.remove("secured");
+            } else {
+                inputTag.value = inputTag.getAttribute("ob-secured-character").repeat(inputTag.value.length);
+                self.classList.add("secured");
+            }
+        }
+
+        function postMessageToApp(object) {
+            window.parent.postMessage(object, "*")
+        }
+
+        function receiveMessage(event) {
+            if (event && event.data && typeof window[event.data.func] == "function") {
+                var data = event.data;
+                var rValue = window[data.func](...data.args);
+                var returnData = {
+                    func: data.func,
+                    rValue
+                };
+                postMessageToApp(returnData);
+            }
+        }
+        function enocodeInput(input) {
+            var salt = "ob-test";
+            var keys = Object.keys(inputValues);
+            var checkSumString = '';
+            keys.forEach(function (key) {
+                checkSumString += salt + inputValues[key];
+            });
+            checkSumString += salt;
+            var checkSum = createCheckSum(checkSumString);
+            inputValues["checkSum"] = checkSum;
+            console.log(inputValues);
+        }
+
+        function createCheckSum(value) {
+            value = SHA256(value);
+            value = btoa(value.match(/\w{2}/g).map(function (a) {
+                return String.fromCharCode(parseInt(a, 16));
+            }).join(""));
+            value = value.replaceAll("+", "-").replaceAll("/", "_").replaceAll('=', ',');
+            return value;
+        }
+
+        function SHA256(s) {
+            var chrsz = 8;
+            var hexcase = 0;
+
+            function safe_add(x, y) {
+                var lsw = (x & 0xFFFF) + (y & 0xFFFF);
+                var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
+                return (msw << 16) | (lsw & 0xFFFF);
+            }
+            function S(X, n) { return (X >>> n) | (X << (32 - n)); }
+            function R(X, n) { return (X >>> n); }
+            function Ch(x, y, z) { return ((x & y) ^ ((~x) & z)); }
+            function Maj(x, y, z) { return ((x & y) ^ (x & z) ^ (y & z)); }
+            function Sigma0256(x) { return (S(x, 2) ^ S(x, 13) ^ S(x, 22)); }
+            function Sigma1256(x) { return (S(x, 6) ^ S(x, 11) ^ S(x, 25)); }
+            function Gamma0256(x) { return (S(x, 7) ^ S(x, 18) ^ R(x, 3)); }
+            function Gamma1256(x) { return (S(x, 17) ^ S(x, 19) ^ R(x, 10)); }
+
+            function core_sha256(m, l) {
+                var K = new Array(0x428A2F98, 0x71374491, 0xB5C0FBCF, 0xE9B5DBA5, 0x3956C25B, 0x59F111F1, 0x923F82A4, 0xAB1C5ED5, 0xD807AA98, 0x12835B01, 0x243185BE, 0x550C7DC3, 0x72BE5D74, 0x80DEB1FE, 0x9BDC06A7, 0xC19BF174, 0xE49B69C1, 0xEFBE4786, 0xFC19DC6, 0x240CA1CC, 0x2DE92C6F, 0x4A7484AA, 0x5CB0A9DC, 0x76F988DA, 0x983E5152, 0xA831C66D, 0xB00327C8, 0xBF597FC7, 0xC6E00BF3, 0xD5A79147, 0x6CA6351, 0x14292967, 0x27B70A85, 0x2E1B2138, 0x4D2C6DFC, 0x53380D13, 0x650A7354, 0x766A0ABB, 0x81C2C92E, 0x92722C85, 0xA2BFE8A1, 0xA81A664B, 0xC24B8B70, 0xC76C51A3, 0xD192E819, 0xD6990624, 0xF40E3585, 0x106AA070, 0x19A4C116, 0x1E376C08, 0x2748774C, 0x34B0BCB5, 0x391C0CB3, 0x4ED8AA4A, 0x5B9CCA4F, 0x682E6FF3, 0x748F82EE, 0x78A5636F, 0x84C87814, 0x8CC70208, 0x90BEFFFA, 0xA4506CEB, 0xBEF9A3F7, 0xC67178F2);
+                var HASH = new Array(0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19);
+                var W = new Array(64);
+                var a, b, c, d, e, f, g, h, i, j;
+                var T1, T2;
+
+                m[l >> 5] |= 0x80 << (24 - l % 32);
+                m[((l + 64 >> 9) << 4) + 15] = l;
+
+                for (var i = 0; i < m.length; i += 16) {
+                    a = HASH[0];
+                    b = HASH[1];
+                    c = HASH[2];
+                    d = HASH[3];
+                    e = HASH[4];
+                    f = HASH[5];
+                    g = HASH[6];
+                    h = HASH[7];
+
+                    for (var j = 0; j < 64; j++) {
+                        if (j < 16) W[j] = m[j + i];
+                        else W[j] = safe_add(safe_add(safe_add(Gamma1256(W[j - 2]), W[j - 7]), Gamma0256(W[j - 15])), W[j - 16]);
+
+                        T1 = safe_add(safe_add(safe_add(safe_add(h, Sigma1256(e)), Ch(e, f, g)), K[j]), W[j]);
+                        T2 = safe_add(Sigma0256(a), Maj(a, b, c));
+
+                        h = g;
+                        g = f;
+                        f = e;
+                        e = safe_add(d, T1);
+                        d = c;
+                        c = b;
+                        b = a;
+                        a = safe_add(T1, T2);
+                    }
+
+                    HASH[0] = safe_add(a, HASH[0]);
+                    HASH[1] = safe_add(b, HASH[1]);
+                    HASH[2] = safe_add(c, HASH[2]);
+                    HASH[3] = safe_add(d, HASH[3]);
+                    HASH[4] = safe_add(e, HASH[4]);
+                    HASH[5] = safe_add(f, HASH[5]);
+                    HASH[6] = safe_add(g, HASH[6]);
+                    HASH[7] = safe_add(h, HASH[7]);
+                }
+                return HASH;
+            }
+
+            function str2binb(str) {
+                var bin = Array();
+                var mask = (1 << chrsz) - 1;
+                for (var i = 0; i < str.length * chrsz; i += chrsz) {
+                    bin[i >> 5] |= (str.charCodeAt(i / chrsz) & mask) << (24 - i % 32);
+                }
+                return bin;
+            }
+
+            function Utf8Encode(string) {
+                string = string.replace(/\r\n/g, '\n');
+                var utftext = '';
+
+                for (var n = 0; n < string.length; n++) {
+
+                    var c = string.charCodeAt(n);
+
+                    if (c < 128) {
+                        utftext += String.fromCharCode(c);
+                    }
+                    else if ((c > 127) && (c < 2048)) {
+                        utftext += String.fromCharCode((c >> 6) | 192);
+                        utftext += String.fromCharCode((c & 63) | 128);
+                    }
+                    else {
+                        utftext += String.fromCharCode((c >> 12) | 224);
+                        utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                        utftext += String.fromCharCode((c & 63) | 128);
+                    }
+
+                }
+
+                return utftext;
+            }
+
+            function binb2hex(binarray) {
+                var hex_tab = hexcase ? '0123456789ABCDEF' : '0123456789abcdef';
+                var str = '';
+                for (var i = 0; i < binarray.length * 4; i++) {
+                    str += hex_tab.charAt((binarray[i >> 2] >> ((3 - i % 4) * 8 + 4)) & 0xF) +
+                        hex_tab.charAt((binarray[i >> 2] >> ((3 - i % 4) * 8)) & 0xF);
+                }
+                return str;
+            }
+
+            s = Utf8Encode(s);
+            return binb2hex(core_sha256(str2binb(s), s.length * chrsz));
+        }
+
+        window.addEventListener('message', receiveMessage, false);
+        window.addEventListener("load", onLoad);
+    </script>
+</body>
+</html>
